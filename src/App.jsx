@@ -12,13 +12,15 @@ import SearchPage from './pages/SearchPage'
 import CategoryDeatils from './pages/CategoryDeatils'
 import AddAdForm from './pages/AddAdForm '
 import UserProfile from './pages/UserProfile'
+import { ScrollTopButton } from './components/ScrollToTop'
+import NoticeModal from './components/NoticeModal'
 
 function App () {
   const [dark, setDark] = useState(
     () =>
       localStorage.theme === 'dark' ||
       (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+        window.matchMedia('(prefers-color-scheme: light)').matches)
   )
   useEffect(() => {
     if (dark) {
@@ -38,7 +40,7 @@ function App () {
           <Route
             path='settings'
             element={<Settings dark={dark} setDark={setDark} />}
-          />
+            />
           <Route path='categories' element={<Categories />} />
           <Route path='/product/:id' element={<ProductDetails />} />
           <Route path='/search' element={<SearchPage />} />
@@ -49,6 +51,8 @@ function App () {
         </Routes>
       </div>
       <BottomNav />
+            <ScrollTopButton/>
+            <NoticeModal/>
     </>
   )
 }
