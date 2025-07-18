@@ -11,11 +11,11 @@ import image9 from '../assets/section9.jpg';
 export const categories = [
   { key: "realEstate", image: image1 },
   { key: "vehicles", image: image2 },
-  { key: "petServices", image: image3 },
-  { key: "furniture", image: image4 },
-  { key: "electronics", image: image5 },
-  { key: "clothing", image: image6 },
-  { key: "furnishings", image: image7 },
+  { key: "petServices", image: image6 },
+  { key: "furniture", image: image7 },
+  { key: "electronics", image: image3 },
+  { key: "clothing", image: image5 },
+  { key: "furnishings", image: image4 },
   { key: "appliances", image: image8 },
   { key: "services", image: image9 },
 ];

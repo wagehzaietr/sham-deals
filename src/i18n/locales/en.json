@@ -142,5 +142,12 @@
   "noticeModal": {
     "title": "under development",
     "sub": " This app is still under development. Features might not work as expected."
+  },
+
+  "greeting": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening",
+    "night": "Good night"
   }
 }

@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar'
 import Categories from './Categories'
 import ProductDetails from './ProductDetails'
 import FeaturedProducts from './FeaturedProducts'
+import Greetsection from '../components/Greetsection'
 
 
 function Home () {
@@ -17,6 +18,7 @@ function Home () {
         <p className='text-sm text-gray-500 mt-2'>{t('app.tagline')}</p>
       </div>
     </header>
+    <Greetsection/>
     <SearchBar/>
     <Categories/>
     <FeaturedProducts/>
