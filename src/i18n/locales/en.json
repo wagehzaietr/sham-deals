@@ -138,5 +138,9 @@
     "name": "Name",
     "email": "Email",
     "phone": "Phone"
+  },
+  "noticeModal": {
+    "title": "under development",
+    "sub": " This app is still under development. Features might not work as expected."
   }
 }
