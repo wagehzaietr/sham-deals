@@ -5,6 +5,7 @@ import { AiOutlineSetting } from 'react-icons/ai';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n/index';
+import { FaGithub } from 'react-icons/fa';
 
 
 export default function Settings({ dark, setDark }) {
@@ -77,8 +78,13 @@ const changeLanguage = (lng) => {
         <section className="space-y-2 rounded-xl border border-slate-200 p-4 text-center text-sm dark:border-slate-700">
           <h2 className="text-lg font-semibold">{t('about')}</h2>
           <p>
-            {t('madeWith')} {t('version')}
+            © {new Date().getFullYear()} {t('madeWith')}
           </p>
+          <div className='flex items-center justify-center mt-4 dark:text-white'>
+            <a href="https://github.com/wagehzaietr" target="_blank" rel="noopener noreferrer">
+              <FaGithub size={20} />
+            </a>
+          </div>
         </section>
       </div>
     </div>
