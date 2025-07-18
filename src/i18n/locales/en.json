@@ -1,0 +1,142 @@
+{
+  "app": {
+    "name": "Sham Deals",
+    "tagline": "Buy and sell anything easily"
+  },
+  "navigation": {
+    "home": "Home",
+    "post": "Post Ad",
+    "profile": "Profile",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "add": "Add",
+    "search": "Search",
+    "favorites": "Favorites",
+    "settings": "Settings",
+    "categories": "Categories",
+    "myAds": "My Ads"
+
+  },
+  "categories": {
+    "realEstate": "Real Estate",
+    "furniture": "Furniture",
+    "electronics": "Electronics",
+    "petServices": "Pet Services",
+    "clothing": "Clothing",
+    "vehicles": "Vehicles",
+    "services": "Services",
+    "furnishings": "Furnishings",
+    "appliances": "Appliances",
+    "all": "All Categories"
+  },
+  "post": {
+    "title": "Title",
+    "description": "Description",
+    "category": "Category",
+    "contactNumber": "Contact Number",
+    "image": "Image",
+    "submit": "Post Ad"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
+  },
+  "ui": {
+    "darkMode": "Dark Mode",
+    "language": "Language"
+  },
+  "settings": "Settings",
+  "account": "Account",
+  "signIn": "Sign In",
+  "signOut": "Sign Out",
+  "language": "Language",
+  "appearance": "Appearance",
+  "lightMode": "Light Mode",
+  "darkMode": "Dark Mode",
+  "about": "About",
+  "madeWith": "Made with ❤️ using React, Vite & Tailwind v4.",
+  "version": "Version 1.0.0",
+
+  "search": {
+    "placeholder": "Search for ads...",
+  "found": "Found {{count}} result(s)",
+  "notFound": "No items found"
+  },
+  "categoriesDetails": {
+  "realEstate": {
+    "title": "Real Estate",
+    "description": "Find apartments, villas, and commercial properties."
+  },
+  "vehicles": {
+    "title": "Vehicles",
+    "description": "Buy and sell cars, motorcycles, and other vehicles."
+  },
+  "petServices": {
+    "title": "Pet Services",
+    "description": "Explore pet grooming, adoption, and supplies."
+  },
+  "furniture": {
+    "title": "Furniture",
+    "description": "Discover new and used home furniture."
+  },
+  "electronics": {
+    "title": "Electronics",
+    "description": "Find phones, computers, TVs, and more."
+  },
+  "clothing": {
+    "title": "Clothing",
+    "description": "Shop clothing and fashion accessories."
+  },
+  "furnishings": {
+    "title": "Furnishings",
+    "description": "Get rugs, curtains, bedding, and other furnishings."
+  },
+  "appliances": {
+    "title": "Electrical Appliances",
+    "description": "Buy and sell home appliances like refrigerators and ovens."
+  },
+  "services": {
+    "title": "Services",
+    "description": "Find cleaning, repair, and professional services."
+  }
+},
+  "featuredProducts": {
+    "heading": "Featured Ads",
+    "1": {
+      "title": "Modern Villa",
+      "description": "Beautiful 4-bedroom villa with garden."
+    },
+    "2": {
+      "title": "Used Sedan",
+      "description": "Well-maintained sedan, low mileage."
+    }
+  },
+  "contacts": {
+    "whatsapp": "WhatsApp",
+    "phone": "Phone"
+  },
+
+
+
+  "postAd": {
+    "heading": "Post Your Ad",
+    "title": "Title",
+    "description": "Description",
+    "category": "Category",
+    "image": "Image",
+    "whatsapp": "WhatsApp Number",
+    "phone": "Phone Number",
+    "submit": "Publish Ad",
+    "success": "Ad published successfully!",
+    "categories": ["Vehicles", "Electronics", "Real Estate", "Fashion", "Services"]
+  },
+    "profile": {
+    "title": "My Profile",
+    "edit": "Edit Profile",
+    "save": "Save",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone"
+  }
+}

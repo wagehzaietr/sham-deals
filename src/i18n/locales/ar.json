@@ -1,0 +1,255 @@
+{
+  "app": {
+    "name": "عروض شام",
+    "tagline": "اكتشف أفضل العروض، واشتري وبيع بكل ثقة وسهولة"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "post": "أضف إعلانك الآن",
+    "profile": "الملف الشخصي",
+    "signin": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "search": "ابحث عن قسم.",
+    "favorites": "المفضلة",
+    "settings": "الإعدادات",
+    "categories": "كل الأقسام",
+    "myAds": "إعلاناتي",
+    "add": "اضافة"
+  },
+
+  "subcategories": {
+    "realEstate": {
+      "land": "أراضي",
+      "farms": "مزارع",
+      "houses": "بيوت",
+      "apartments": "شقق",
+      "shops": "محلات",
+      "warehouses": "مستودعات"
+    },
+    "furniture": {
+      "bedroom": "أثاث غرف نوم",
+      "living": "أثاث صالونات",
+      "furnishings": "مفروشات",
+      "decor": "ديكور"
+    },
+    "electronics": {
+      "phones": "هواتف",
+      "computers": "أجهزة كمبيوتر",
+      "appliances": "أجهزة منزلية",
+      "accessories": "ملحقات الكترونية"
+    },
+    "petServices": {
+      "medical": "رعاية طبية",
+      "nutrition": "تغذية",
+      "training": "تدريب",
+      "buyingSelling": "بيع وشراء"
+    },
+    "clothing": {
+      "men": "رجالي",
+      "women": "نسائي",
+      "children": "أطفال",
+      "shoes": "أحذية",
+      "accessories": "إكسسوارات"
+    },
+    "vehicles": {
+      "cars": "سيارات",
+      "motorcycles": "دراجات نارية",
+      "trucks": "شاحنات",
+      "boats": "قوارب",
+      "heavyEquipment": "معدات ثقيلة"
+    },
+    "services": {
+      "maintenance": "صيانة",
+      "transport": "نقل",
+      "cleaning": "تنظيف",
+      "freelance": "أعمال حرة",
+      "consulting": "استشارات"
+    }
+  },
+  "post": {
+    "title": "العنوان",
+    "description": "الوصف",
+    "category": "الفئة",
+    "subCategory": "القسم الفرعي",
+    "contactNumber": "رقم الاتصال",
+    "image": "صورة",
+    "submit": "نشر الإعلان",
+    "addPost": "أضف إعلانك الآن",
+    "loginRequired": "الرجاء تسجيل الدخول أولاً",
+    "loginRequiredMessage": "هذه الميزة متاحة فقط للمستخدمين المسجلين.",
+    "needHelp": "تحتاج مساعدة؟ تواصل معنا"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "signOut": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "name": "الاسم"
+  },
+  "ui": {
+    "darkMode": "الوضع الداكن",
+    "language": "اللغة",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "success": "تم بنجاح",
+    "noResults": "لم نجد أي نتائج تطابق بحثك. لا تقلق، يمكنك تعديل الفلاتر لتظهر لك الإعلانات المناسبة",
+    "tryAdjusting": "يمكنك تجربة تعديل معايير البحث الخاصة بك للحصول",
+    "recentAds": "أحدث الإعلانات",
+    "contact": "اتصال",
+    "whatsapp": "واتساب",
+    "call": "اتصال مباشر",
+    "views": "مشاهدة",
+    "location": "الموقع",
+    "adInfo": "معلومات الإعلان",
+    "price": "السعر",
+    "contactViaWhatsapp": "تواصل عبر واتساب",
+    "directCall": "اتصال مباشر",
+    "searchOptions": "خيارات البحث",
+    "sortResults": "ترتيب النتائج حسب:",
+    "lowestPrice": "الأقل سعراً أولاً",
+    "highestPrice": "الأعلى سعراً أخيراً",
+    "newest": "الأحدث أولاً",
+    "oldest": "الأقدم أولاً",
+    "searchKeyword": "كلمة البحث",
+    "chooseProvinces": "اختر المحافظات المناسبة لك",
+    "chooseProvincesDesc": "اختر المحافظات التي تود مشاهدة الإعلانات منها فقط",
+    "provincesAlphabetical": "المحافظات مرتبة أبجدياً لتسهيل الاختيار",
+    "thankYou": "شكراً من القلب",
+    "thankYouMessage": "استفدنا من ملاحظاتكم وطورنا التطبيق، ولسنا مكتملين معكم. نتوصله لأفضل المستويات.",
+    "whatsNew": "ما الجديد؟",
+    "newFeatures": [
+      "أكثر من 70 قسم جديد بانتظارك",
+      "تسجيل دخول سريع وسهل",
+      "ملف عام لكل مستخدم مع كل إعلاناته",
+      "خاصية اختيار المحافظة",
+      "تحسينات عامة بالأداء"
+    ],
+    "andMore": "والمزيد قادم..."
+  },
+  "provinces": {
+    "damascus": "دمشق",
+    "aleppo": "حلب",
+    "homs": "حمص",
+    "hama": "حماة",
+    "lattakia": "اللاذقية",
+    "tartous": "طرطوس",
+    "idlib": "إدلب",
+    "hasaka": "الحسكة",
+    "raqqa": "الرقة",
+    "deir": "دير الزور",
+    "daraa": "درعا",
+    "suweida": "السويداء",
+    "quneitra": "القنيطرة",
+    "damascusCountryside": "ريف دمشق"
+  },
+    "hero":{
+    "main": "شام ديلز",
+    "sub": "اشتري واشتري بسهولة"
+  },
+  "settings": "الإعدادات",
+  "account": "الحساب",
+  "signIn": "تسجيل الدخول",
+  "signOut": "تسجيل الخروج",
+  "language": "اللغة",
+  "appearance": "المظهر",
+  "lightMode": "الوضع النهاري",
+  "darkMode": "الوضع الليلي",
+  "about": "حول",
+  "madeWith": "صنع ب ❤️ باستخدام React، Vite و Tailwind v4.",
+  "version": "الإصدار ١.٠.٠",
+
+    "search": {
+    "placeholder": "ابحث عن شيء",
+  "found": "تم العثور على {{count}} نتيجة",
+  "notFound": "لا توجد نتائج"
+  },
+  "categoriesDetails": {
+    "realEstate": {
+      "title": "عقارات"
+    },
+    "vehicles": {
+      "title": "مركبات"
+    },
+    "petServices": {
+      "title": "خدمات حيوانات أليفة"
+    },
+    "furniture": {
+      "title": "أثاث"
+    },
+    "electronics": {
+      "title": "إلكترونيات"
+    },
+    "clothing": {
+      "title": "ملابس"
+    },
+    "furnishings": {
+      "title": "مفروشات"
+    },
+    "appliances": {
+      "title": "أدوات كهربائية"
+    },
+    "services": {
+      "title": "خدمات عامة"
+    }
+  },
+  "how": {
+    "heading": "استكشف الأقسام",
+    "subheading": "اختر فئة لبدء التصفح."
+  },
+  "featuredProducts": {
+    "heading": "المنتجات المميزة",
+    "1": {
+      "title": "فيلا حديثة",
+      "description": "فيلا جميلة من 4 غرف نوم مع حديقة."
+    },
+    "2": {
+      "title": "سيارة سيدان مستعملة",
+      "description": "سيارة سيدان بحالة ممتازة وقليلة الاستخدام."
+    }
+  },
+  "contacts": {
+    "whatsapp": "واتساب",
+    "phone": "هاتف"
+  },
+  "categories": {
+    "realEstate": "عقارات",
+    "furniture": "أثاث",
+    "electronics": "إلكترونيات",
+    "petServices": "خدمات الحيوانات الأليفة",
+    "clothing": "ملابس",
+    "vehicles": "مركبات",
+    "services": "خدمات عامة",
+    "furnishings": "مفروشات",
+    "appliances": "أدوات كهربائية",
+    "all": "كل الأقسام"
+  },
+
+  "postAd": {
+    "heading": "أضف إعلانك",
+    "title": "العنوان",
+    "description": "الوصف",
+    "category": "الفئة",
+    "image": "الصورة",
+    "whatsapp": "رقم واتساب",
+    "phone": "رقم الهاتف",
+    "submit": "نشر الإعلان",
+    "success": "تم نشر الإعلان بنجاح!",
+    "categories": ["مركبات", "إلكترونيات", "عقارات", "أزياء", "خدمات"]
+  },
+    "profile": {
+    "title": "الملف الشخصي",
+    "edit": "تعديل",
+    "save": "حفظ",
+    "name": "الاسم",
+    "email": "البريد",
+    "phone": "الهاتف"
+  }
+}

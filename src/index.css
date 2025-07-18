@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Pacifico&display=swap');
+@import 'tailwindcss';
+
+* {
+  @apply transition-colors duration-300;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-pacifico: 'pacifico', 'cursive';
+  --font-arabic: 'Noto Sans Arabic', system-ui, sans-serif;
+  --color-bg: #ffffff;
+  --color-fg: #111827;
+}
+
+html[lang='ar'] {
+  font-family: var(--font-arabic);
+  line-height: 1.75; /* looser Arabic line-height */
+  letter-spacing: 0; /* disable Latin tracking */
+}
+
+
+/* cross-fade the whole page when .dark is toggled */
