@@ -11,7 +11,10 @@ import ProductDetails from './pages/ProductDetails'
 import SearchPage from './pages/SearchPage'
 import CategoryDeatils from './pages/CategoryDeatils'
 import AddAdForm from './pages/AddAdForm '
+import EditPost from './pages/EditPost'
 import UserProfile from './pages/UserProfile'
+import PublicUserProfile from './pages/PublicUserProfile'
+import Auth from './pages/Auth'
 import { ScrollTopButton } from './components/ScrollToTop'
 import NoticeModal from './components/NoticeModal'
 
@@ -46,7 +49,10 @@ function App () {
           <Route path='/search' element={<SearchPage />} />
           <Route path='/category/:categoryKey' element={<CategoryDeatils />} />
           <Route path='/add-post' element={<AddAdForm />} />
+          <Route path='/edit-post/:id' element={<EditPost />} />
           <Route path='/profile' element={<UserProfile />} />
+          <Route path='/user-profile/:userId' element={<PublicUserProfile />} />
+          <Route path='/auth' element={<Auth />} />
           <Route path='*' element={<p>Page Not Found</p>} />
         </Routes>
       </div>

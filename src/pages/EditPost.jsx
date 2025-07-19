@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import toast, { Toaster } from 'react-hot-toast';
-import { FiUploadCloud, FiX } from 'react-icons/fi';
+import { FiUploadCloud, FiX, FiArrowLeft } from 'react-icons/fi';
 import { FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
-import { addPost } from '../services/supabaseService';
-import { useNavigate } from 'react-router-dom';
+import { updatePost, getPostById } from '../services/supabaseService';
+import { useNavigate, useParams } from 'react-router-dom';
 import i18n from './../i18n/index';
 
-export default function AddAdSection() {
+export default function EditPost() {
   const { t, i18n } = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { id } = useParams();
   
-  // Use the same category keys as in the data file
+  const [preview, setPreview] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentPost, setCurrentPost] = useState(null);
+  
+  // Category options
   const categoryOptions = [
     { key: 'realEstate', label: t('categories.realEstate') },
     { key: 'vehicles', label: t('categories.vehicles') },
@@ -27,8 +33,6 @@ export default function AddAdSection() {
     { key: 'petServices', label: t('categories.petServices') }
   ];
 
-  const [preview, setPreview] = useState(null);
-  const [imageFile, setImageFile] = useState(null);
   const {
     register,
     handleSubmit,
@@ -36,12 +40,50 @@ export default function AddAdSection() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  useEffect(() => {
     if (!isAuthenticated) {
-      toast.error(t('auth.signInRequired'));
+      navigate('/auth');
       return;
     }
+    
+    if (id) {
+      fetchPost();
+    }
+  }, [id, isAuthenticated]);
 
+  const fetchPost = async () => {
+    try {
+      const post = await getPostById(id);
+      
+      // Check if user owns this post
+      if (post.user_id !== user.id) {
+        toast.error(t('errors.unauthorized'));
+        navigate('/profile');
+        return;
+      }
+      
+      setCurrentPost(post);
+      setPreview(post.imageUrl);
+      
+      // Set form values
+      reset({
+        title: post.title,
+        description: post.description,
+        category: post.category,
+        whatsapp: post.whatsapp,
+        phone: post.phone
+      });
+      
+    } catch (error) {
+      console.error('Error fetching post:', error);
+      toast.error(t('errors.fetchPost'));
+      navigate('/profile');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onSubmit = async (data) => {
     try {
       const postData = {
         title: data.title,
@@ -49,28 +91,21 @@ export default function AddAdSection() {
         category: data.category,
         whatsapp: data.whatsapp,
         phone: data.phone,
-        user_id: user.id,
-        user_email: user.email,
-        user_name: user.user_metadata?.full_name || user.email.split('@')[0],
-        user_avatar: user.user_metadata?.avatar_url || null,
         // Add Arabic fields if current language is Arabic
         ...(i18n.language === 'ar' && {
-          title_ar: data.title,
-          description_ar: data.description,
+          titleAr: data.title,
+          descriptionAr: data.description,
         }),
       };
 
-      await addPost(postData, imageFile);
-      toast.success(t('postAd.success'));
-      reset();
-      setPreview(null);
-      setImageFile(null);
+      await updatePost(id, postData, imageFile);
+      toast.success(t('postAd.updateSuccess'));
       
-      // Navigate to home after successful post
-      setTimeout(() => navigate('/'), 1500);
+      // Navigate back to profile after successful update
+      setTimeout(() => navigate('/profile'), 1500);
     } catch (error) {
-      console.error('Error adding post:', error);
-      toast.error(t('postAd.error'));
+      console.error('Error updating post:', error);
+      toast.error(t('postAd.updateError'));
     }
   };
 
@@ -84,31 +119,14 @@ export default function AddAdSection() {
     }
   };
 
-  // Show sign-in prompt if user is not authenticated
-  if (!isAuthenticated) {
+  if (loading) {
     return (
-      <>
-        <Toaster position="top-center" />
-        <section
-          dir={i18n.dir()}
-          className="max-w-2xl mx-auto px-4 py-12 sm:px-6 lg:px-8"
-        >
-          <div className="text-center bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
-            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-6">
-              {t('postAd.heading')}
-            </h2>
-            <p className="text-slate-600 dark:text-slate-300 mb-8">
-              {t('auth.signInToPost')}
-            </p>
-            <button 
-              onClick={() => navigate('/auth')}
-              className="bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition"
-            >
-              {t('auth.signIn')}
-            </button>
-          </div>
-        </section>
-      </>
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600 mx-auto"></div>
+          <p className="mt-4 text-slate-600 dark:text-slate-300">{t('common.loading')}</p>
+        </div>
+      </div>
     );
   }
 
@@ -119,8 +137,17 @@ export default function AddAdSection() {
         dir={i18n.dir()}
         className="max-w-2xl mx-auto px-4 py-12 sm:px-6 lg:px-8"
       >
+        {/* Back Button */}
+        <button
+          onClick={() => navigate('/profile')}
+          className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white mb-6 transition"
+        >
+          <FiArrowLeft size={16} />
+          {t('ui.back')}
+        </button>
+
         <h2 className="text-3xl font-extrabold text-center text-slate-900 dark:text-white mb-10">
-          {t('postAd.heading')}
+          {t('postAd.editHeading')}
         </h2>
 
         <form
@@ -198,7 +225,10 @@ export default function AddAdSection() {
                     />
                     <button
                       type="button"
-                      onClick={() => setPreview(null)}
+                      onClick={() => {
+                        setPreview(currentPost?.imageUrl || null);
+                        setImageFile(null);
+                      }}
                       className="absolute -top-2 -right-2 rounded-full bg-red-500 p-1 text-white"
                     >
                       <FiX size={16} />
@@ -208,9 +238,8 @@ export default function AddAdSection() {
                   <>
                     <FiUploadCloud className="mx-auto h-12 w-12 text-slate-400" />
                     <label className="relative cursor-pointer rounded-md font-medium text-sky-600 hover:text-sky-500">
-                      <span>Upload</span>
+                      <span>{t('postAd.uploadImage')}</span>
                       <input
-                        {...register('image')}
                         type="file"
                         accept="image/*"
                         className="sr-only"
@@ -234,9 +263,12 @@ export default function AddAdSection() {
                 {...register('whatsapp', { required: true })}
                 className="w-full rounded-lg border-slate-300 bg-slate-50 p-3 pl-10 text-sm
                            focus:border-sky-500 focus:ring-sky-500 dark:bg-slate-700 dark:border-slate-600"
-                placeholder="+9665..."
+                placeholder="+966..."
               />
             </div>
+            {errors.whatsapp && (
+              <p className="mt-1 text-xs text-red-500">{t('errors.required')}</p>
+            )}
           </div>
 
           {/* Phone */}
@@ -250,9 +282,12 @@ export default function AddAdSection() {
                 {...register('phone', { required: true })}
                 className="w-full rounded-lg border-slate-300 bg-slate-50 p-3 pl-10 text-sm
                            focus:border-sky-500 focus:ring-sky-500 dark:bg-slate-700 dark:border-slate-600"
-                placeholder="+9665..."
+                placeholder="+966..."
               />
             </div>
+            {errors.phone && (
+              <p className="mt-1 text-xs text-red-500">{t('errors.required')}</p>
+            )}
           </div>
 
           {/* Submit */}
@@ -262,7 +297,7 @@ export default function AddAdSection() {
             className="w-full rounded-lg bg-sky-600 py-3 text-sm font-semibold text-white
                        hover:bg-sky-700 disabled:opacity-60 transition"
           >
-            {isSubmitting ? '...' : t('postAd.submit')}
+            {isSubmitting ? t('common.loading') : t('postAd.updatePost')}
           </button>
         </form>
       </section>

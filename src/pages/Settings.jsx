@@ -6,7 +6,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n/index';
 import { FaGithub } from 'react-icons/fa';
-
+import logoimg from '../assets/shamlogo1.jpg'
 
 export default function Settings({ dark, setDark }) {
   // Fake auth state
@@ -27,25 +27,7 @@ const changeLanguage = (lng) => {
           {t('settings')}
         </h1>
 
-        {/* Account */}
-        <section className="space-y-2 rounded-xl border border-slate-200 p-4 dark:border-slate-700">
-          <h2 className="text-lg font-semibold">{t('account')}</h2>
-          {isLoggedIn ? (
-            <button
-              onClick={() => setIsLoggedIn(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
-            >
-              <FiLogOut /> {t('signOut')}
-            </button>
-          ) : (
-            <button
-              onClick={() => setIsLoggedIn(true)}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2 text-white transition hover:bg-sky-600"
-            >
-              <FiLogIn /> {t('signIn')}
-            </button>
-          )}
-        </section>
+
 
         {/* Language */}
         <section className="space-y-2 rounded-xl border border-slate-200 p-4 dark:border-slate-700">
@@ -86,6 +68,9 @@ const changeLanguage = (lng) => {
             </a>
           </div>
         </section>
+        <div className='flex justify-center items-center'>
+        <img className='w-15 rounded-full' src={logoimg} alt="logo-image" />
+        </div>
       </div>
     </div>
   );

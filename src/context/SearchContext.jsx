@@ -1,6 +1,8 @@
 // src/context/SearchContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { searchPosts } from '../services/supabaseService';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 const SearchContext = createContext();
@@ -8,27 +10,41 @@ const SearchContext = createContext();
 export function SearchProvider({ children }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
-  // mock search effect – replace with real API call
+  // Firebase search effect
   useEffect(() => {
     if (!query.trim()) {
       setResults([]);
       return;
     }
-    const timer = setTimeout(() => {
-      const mock = query === '404' ? [] : ['item1', 'item2']; // fake
-      setResults(mock);
-      if (mock.length) {
-        toast.success(`Found ${mock.length} result(s)`);
-      } else {
-        toast.error('No items found');
+
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const searchResults = await searchPosts(query.trim());
+        setResults(searchResults);
+        
+        if (searchResults.length > 0) {
+          toast.success(t('search.found', { count: searchResults.length }));
+        } else {
+          toast.error(t('search.noResults'));
+        }
+      } catch (error) {
+        console.error('Search error:', error);
+        toast.error(t('search.error'));
+        setResults([]);
+      } finally {
+        setLoading(false);
       }
-    }, 600);
+    }, 600); // Debounce search
+
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, t]);
 
   return (
-    <SearchContext.Provider value={{ query, setQuery, results }}>
+    <SearchContext.Provider value={{ query, setQuery, results, loading }}>
       {children}
     </SearchContext.Provider>
   );

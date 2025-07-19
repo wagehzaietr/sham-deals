@@ -40,7 +40,24 @@
   "auth": {
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "signInRequired": "Please sign in to continue",
+    "signInToPost": "You need to sign in to post an ad",
+    "welcome": "Welcome back!",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "createAccount": "Create your account",
+    "welcomeBack": "Welcome back!",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "fullNamePlaceholder": "Enter your full name",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "checkEmail": "Check your email for verification link",
+    "error": "Authentication failed",
+    "signedOut": "Successfully signed out",
+    "signOutError": "Error signing out"
   },
   "ui": {
     "darkMode": "Dark Mode",
@@ -60,8 +77,17 @@
 
   "search": {
     "placeholder": "Search for ads...",
-  "found": "Found {{count}} result(s)",
-  "notFound": "No items found"
+    "found": "Found {{count}} result(s)",
+    "notFound": "No items found",
+    "noResults": "No results found",
+    "title": "Search Results",
+    "quickAccess": "Quick Categories",
+    "searching": "Searching...",
+    "resultsFor": "Results for \"{{query}}\"",
+    "tryDifferent": "Try different keywords or browse categories",
+    "startTyping": "Start typing to search for ads",
+    "error": "Search failed. Please try again.",
+    "resultsFound": "results found"
   },
   "categoriesDetails": {
   "realEstate": {
@@ -101,17 +127,7 @@
     "description": "Find cleaning, repair, and professional services."
   }
 },
-  "featuredProducts": {
-    "heading": "Featured Ads",
-    "1": {
-      "title": "Modern Villa",
-      "description": "Beautiful 4-bedroom villa with garden."
-    },
-    "2": {
-      "title": "Used Sedan",
-      "description": "Well-maintained sedan, low mileage."
-    }
-  },
+
   "contacts": {
     "whatsapp": "WhatsApp",
     "phone": "Phone"
@@ -121,6 +137,7 @@
 
   "postAd": {
     "heading": "Post Your Ad",
+    "editHeading": "Edit Your Ad",
     "title": "Title",
     "description": "Description",
     "category": "Category",
@@ -128,16 +145,48 @@
     "whatsapp": "WhatsApp Number",
     "phone": "Phone Number",
     "submit": "Publish Ad",
+    "updatePost": "Update Ad",
+    "uploadImage": "Upload Image",
     "success": "Ad published successfully!",
+    "updateSuccess": "Ad updated successfully!",
+    "error": "Failed to publish ad. Please try again.",
+    "updateError": "Failed to update ad. Please try again.",
     "categories": ["Vehicles", "Electronics", "Real Estate", "Fashion", "Services"]
   },
     "profile": {
     "title": "My Profile",
     "edit": "Edit Profile",
+    "editProfile": "Edit Profile",
     "save": "Save",
+    "saveProfile": "Save Profile",
     "name": "Name",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
     "email": "Email",
-    "phone": "Phone"
+    "phone": "Phone",
+    "phoneNumber": "Phone Number",
+    "phoneNumberPlaceholder": "Enter your phone number (e.g., +966501234567)",
+    "phoneNumberHint": "Include country code for international numbers",
+    "noPhone": "No phone number added",
+    "noPosts": "You haven't posted any ads yet",
+    "confirmDelete": "Are you sure you want to delete this ad?",
+    "deleteSuccess": "Ad deleted successfully!",
+    "deleteError": "Failed to delete ad. Please try again.",
+    "changeAvatar": "Change profile picture",
+    "updateAvatar": "Update Profile Picture",
+    "avatarPreview": "This is how your new profile picture will look",
+    "uploadAvatar": "Upload",
+    "avatarUpdated": "Profile picture updated successfully!",
+    "avatarUploadError": "Failed to upload profile picture. Please try again.",
+    "invalidFileType": "Please select a valid image file",
+    "fileTooLarge": "File size must be less than 5MB",
+    "profileUpdated": "Profile updated successfully!",
+    "profileUpdateError": "Failed to update profile. Please try again.",
+    "userNotFound": "User not found",
+    "memberSince": "Member since",
+    "activeAds": "active ads",
+    "adsBy": "Ads by",
+    "noPublicPosts": "This user hasn't posted any ads yet"
   },
   "noticeModal": {
     "title": "under development",
@@ -148,6 +197,40 @@
     "morning": "Good morning",
     "afternoon": "Good afternoon",
     "evening": "Good evening",
-    "night": "Good night"
+    "night": "Good night",
+    "welcomeBack": "Welcome back to the marketplace!"
+  },
+  "errors": {
+    "required": "This field is required",
+    "fetchPosts": "Failed to load posts",
+    "fetchPost": "Failed to load post",
+    "unauthorized": "You are not authorized to edit this post",
+    "fetchUserData": "Failed to load user data"
+  },
+  "common": {
+    "loading": "Loading...",
+    "uploading": "Uploading...",
+    "error": "An error occurred",
+    "success": "Success!"
+  },
+  "featuredProducts": {
+    "heading": "Featured Ads",
+    "noPosts": "No ads available yet. Be the first to post!"
+  },
+  "product": {
+    "notFound": "Product not found",
+    "postedOn": "Posted on",
+    "viewProfile": "View Profile"
+  },
+  "category": {
+    "noPosts": "No posts in this category yet. Be the first to post!"
+  },
+  "ui": {
+    "back": "Back",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel"
   }
 }

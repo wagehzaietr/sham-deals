@@ -8,7 +8,7 @@ export default function NoticeModal () {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShow(false)
-    }, 3000)
+    }, 0)
 
     return () => clearTimeout(timer)
   }, [])
