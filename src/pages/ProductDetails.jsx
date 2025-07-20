@@ -15,11 +15,12 @@ import {
 import { getPostById } from '../services/supabaseService'
 import toast from 'react-hot-toast'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Thumbs } from 'swiper/modules'
+import { Navigation, Pagination, Thumbs, Zoom } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/thumbs'
+import 'swiper/css/zoom'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -169,7 +170,7 @@ const ProductDetails = () => {
                 {imagesArray.length > 0 ? (
                   <>
                     <Swiper
-                      modules={[Navigation, Pagination, Thumbs]}
+                      modules={[Navigation, Pagination, Thumbs, Zoom]}
                       spaceBetween={0}
                       slidesPerView={1}
                       navigation={{
@@ -181,6 +182,11 @@ const ProductDetails = () => {
                         dynamicBullets: true
                       }}
                       thumbs={{ swiper: thumbsSwiper }}
+                      zoom={{
+                        maxRatio: 3,
+                        minRatio: 1,
+                        toggle: true
+                      }}
                       onSlideChange={swiper =>
                         setActiveImageIndex(swiper.activeIndex)
                       }
@@ -188,7 +194,7 @@ const ProductDetails = () => {
                     >
                       {imagesArray.map((imageUrl, index) => (
                         <SwiperSlide key={index}>
-                          <div className='relative w-full h-full'>
+                          <div className='swiper-zoom-container relative w-full h-full'>
                             {/* Loading skeleton */}
                             {!imageLoaded && index === 0 && (
                               <div className='absolute inset-0 bg-slate-200 dark:bg-slate-700 animate-pulse flex items-center justify-center'>
@@ -218,7 +224,7 @@ const ProductDetails = () => {
                                     ? post.titleAr
                                     : post.title
                                 } - ${index + 1}`}
-                                className={`w-full h-full  transition-all duration-700 ${
+                                className={`w-full h-full object-cover transition-all duration-700 ${
                                   !imageLoaded && index === 0
                                     ? 'opacity-0'
                                     : 'opacity-100'
