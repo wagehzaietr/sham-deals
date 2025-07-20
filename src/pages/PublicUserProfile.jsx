@@ -168,7 +168,7 @@ export default function PublicUserProfile() {
                     {i18n.language === 'ar' && post.descriptionAr ? post.descriptionAr : post.description}
                   </p>
                   <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 capitalize">
-                    {post.category}
+                    {t(`categories.${post.category}`, post.category)}
                   </p>
                   <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                     {post.createdAt?.toDate?.()?.toLocaleDateString() || 'Recently'}

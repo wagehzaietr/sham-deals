@@ -1,30 +1,32 @@
 import { supabase } from '../config/supabase';
 
 // Add a new post
-export const addPost = async (postData, imageFile = null) => {
+export const addPost = async (postData, imageFiles = []) => {
   try {
-    let imageUrl = null;
+    let imageUrls = [];
     
-    // Upload image if provided
-    if (imageFile) {
-      const fileExt = imageFile.name.split('.').pop();
-      const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `posts/${fileName}`;
+    // Upload multiple images if provided
+    if (imageFiles && imageFiles.length > 0) {
+      for (const imageFile of imageFiles) {
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const filePath = `posts/${fileName}`;
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('posts')
-        .upload(filePath, imageFile);
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('posts')
+          .upload(filePath, imageFile);
 
-      if (uploadError) {
-        throw uploadError;
+        if (uploadError) {
+          throw uploadError;
+        }
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('posts')
+          .getPublicUrl(filePath);
+        
+        imageUrls.push(publicUrl);
       }
-
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('posts')
-        .getPublicUrl(filePath);
-      
-      imageUrl = publicUrl;
     }
 
     // Get current user from Supabase Auth
@@ -41,7 +43,8 @@ export const addPost = async (postData, imageFile = null) => {
       title_ar: postData.titleAr || null,
       description_ar: postData.descriptionAr || null,
       category: postData.category,
-      image_url: imageUrl,
+      image_url: imageUrls[0] || null, // Primary image
+      image_urls: imageUrls.length > 0 ? JSON.stringify(imageUrls) : null, // All images as JSON
       whatsapp: postData.whatsapp,
       phone: postData.phone,
       user_id: user.id, // Use Supabase Auth user ID
@@ -88,6 +91,7 @@ export const getPosts = async (limitCount = 20) => {
       id: post.id,
       ...post,
       imageUrl: post.image_url,
+      imageUrls: post.image_urls ? JSON.parse(post.image_urls) : (post.image_url ? [post.image_url] : []),
       createdAt: { toDate: () => new Date(post.created_at) }
     }));
   } catch (error) {
@@ -129,6 +133,7 @@ export const searchPosts = async (searchTerm, category = null) => {
       id: post.id,
       ...post,
       imageUrl: post.image_url,
+      imageUrls: post.image_urls ? JSON.parse(post.image_urls) : (post.image_url ? [post.image_url] : []),
       titleAr: post.title_ar,
       descriptionAr: post.description_ar,
       createdAt: { toDate: () => new Date(post.created_at) }
@@ -156,6 +161,7 @@ export const getPostsByCategory = async (category) => {
       id: post.id,
       ...post,
       imageUrl: post.image_url,
+      imageUrls: post.image_urls ? JSON.parse(post.image_urls) : (post.image_url ? [post.image_url] : []),
       titleAr: post.title_ar,
       descriptionAr: post.description_ar,
       createdAt: { toDate: () => new Date(post.created_at) }
@@ -187,6 +193,7 @@ export const getPostById = async (postId) => {
       id: data.id,
       ...data,
       imageUrl: data.image_url,
+      imageUrls: data.image_urls ? JSON.parse(data.image_urls) : (data.image_url ? [data.image_url] : []),
       titleAr: data.title_ar,
       descriptionAr: data.description_ar,
       createdAt: { toDate: () => new Date(data.created_at) }
@@ -213,6 +220,7 @@ export const getPostsByUser = async (userId) => {
       id: post.id,
       ...post,
       imageUrl: post.image_url,
+      imageUrls: post.image_urls ? JSON.parse(post.image_urls) : (post.image_url ? [post.image_url] : []),
       titleAr: post.title_ar,
       descriptionAr: post.description_ar,
       createdAt: { toDate: () => new Date(post.created_at) }

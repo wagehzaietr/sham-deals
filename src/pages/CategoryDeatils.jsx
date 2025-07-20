@@ -149,7 +149,7 @@ const CategoryDeatils = () => {
               {i18n.language === 'ar' && post.descriptionAr ? post.descriptionAr : post.description}
             </p>
             <p className="mt-2 text-xs uppercase tracking-wide text-slate-400 dark:text-slate-500">
-              {post.category}
+              {t(`categories.${post.category}`, post.category)}
             </p>
 
             {/* User Info */}

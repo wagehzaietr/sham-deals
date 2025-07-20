@@ -27,8 +27,9 @@ export default function AddAdSection() {
     { key: 'petServices', label: t('categories.petServices') }
   ];
 
-  const [preview, setPreview] = useState(null);
-  const [imageFile, setImageFile] = useState(null);
+  const [imagePreviews, setImagePreviews] = useState([]);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [dragActive, setDragActive] = useState(false);
   const {
     register,
     handleSubmit,
@@ -60,11 +61,11 @@ export default function AddAdSection() {
         }),
       };
 
-      await addPost(postData, imageFile);
+      await addPost(postData, imageFiles);
       toast.success(t('postAd.success'));
       reset();
-      setPreview(null);
-      setImageFile(null);
+      setImagePreviews([]);
+      setImageFiles([]);
       
       // Navigate to home after successful post
       setTimeout(() => navigate('/'), 1500);
@@ -74,14 +75,66 @@ export default function AddAdSection() {
     }
   };
 
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file); // Store the actual file for upload
-      const reader = new FileReader();
-      reader.onload = () => setPreview(reader.result);
-      reader.readAsDataURL(file);
+  const handleImages = (files) => {
+    const fileArray = Array.from(files);
+    
+    // Limit to 5 images maximum
+    if (imageFiles.length + fileArray.length > 5) {
+      toast.error(t('postAd.maxImages'));
+      return;
     }
+
+    // Validate file types and sizes
+    const validFiles = fileArray.filter(file => {
+      if (!file.type.startsWith('image/')) {
+        toast.error(t('profile.invalidFileType'));
+        return false;
+      }
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast.error(t('profile.fileTooLarge'));
+        return false;
+      }
+      return true;
+    });
+
+    if (validFiles.length === 0) return;
+
+    // Add new files to existing arrays
+    setImageFiles(prev => [...prev, ...validFiles]);
+
+    // Create previews for new files
+    validFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreviews(prev => [...prev, reader.result]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileInput = (e) => {
+    handleImages(e.target.files);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragActive(false);
+    handleImages(e.dataTransfer.files);
+  };
+
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const removeImage = (index) => {
+    setImageFiles(prev => prev.filter((_, i) => i !== index));
+    setImagePreviews(prev => prev.filter((_, i) => i !== index));
   };
 
   // Show sign-in prompt if user is not authenticated
@@ -182,44 +235,98 @@ export default function AddAdSection() {
             )}
           </div>
 
-          {/* Image Upload */}
+          {/* Multiple Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
-              {t('postAd.image')}
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
+              {t('postAd.images')} ({imageFiles.length}/5)
             </label>
-            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg">
-              <div className="space-y-1 text-center">
-                {preview ? (
-                  <div className="relative">
-                    <img
-                      src={preview}
-                      alt="preview"
-                      className="mx-auto h-32 w-auto rounded-lg object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setPreview(null)}
-                      className="absolute -top-2 -right-2 rounded-full bg-red-500 p-1 text-white"
-                    >
-                      <FiX size={16} />
-                    </button>
+            
+            {/* Drag & Drop Upload Area */}
+            <div
+              className={`relative border-2 border-dashed rounded-xl p-6 transition-all duration-300 ${
+                dragActive
+                  ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20'
+                  : 'border-slate-300 dark:border-slate-600 hover:border-sky-400 dark:hover:border-sky-500'
+              }`}
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+            >
+              {imagePreviews.length === 0 ? (
+                <div className="text-center">
+                  <FiUploadCloud className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                  <div className="space-y-2">
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                      {t('postAd.dragDropImages')}
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      {t('postAd.imageLimit')}
+                    </p>
                   </div>
-                ) : (
-                  <>
-                    <FiUploadCloud className="mx-auto h-12 w-12 text-slate-400" />
-                    <label className="relative cursor-pointer rounded-md font-medium text-sky-600 hover:text-sky-500">
-                      <span>Upload</span>
-                      <input
-                        {...register('image')}
-                        type="file"
-                        accept="image/*"
-                        className="sr-only"
-                        onChange={handleImage}
-                      />
-                    </label>
-                  </>
-                )}
-              </div>
+                  <label className="mt-4 inline-flex items-center gap-2 cursor-pointer rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700 transition">
+                    <FiUploadCloud size={16} />
+                    {t('postAd.selectImages')}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="sr-only"
+                      onChange={handleFileInput}
+                    />
+                  </label>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {/* Image Previews Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className="relative group">
+                        <div className="aspect-square rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-700">
+                          <img
+                            src={preview}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index)}
+                          className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <FiX size={14} />
+                        </button>
+                        <div className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                          {index + 1}
+                        </div>
+                      </div>
+                    ))}
+                    
+                    {/* Add More Button */}
+                    {imageFiles.length < 5 && (
+                      <label className="aspect-square rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-sky-400 dark:hover:border-sky-500 flex items-center justify-center cursor-pointer transition-colors group">
+                        <div className="text-center">
+                          <FiUploadCloud className="mx-auto h-8 w-8 text-slate-400 group-hover:text-sky-500 transition-colors" />
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            {t('postAd.addMore')}
+                          </p>
+                        </div>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          className="sr-only"
+                          onChange={handleFileInput}
+                        />
+                      </label>
+                    )}
+                  </div>
+                  
+                  <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
+                    {t('postAd.imageInstructions')}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
